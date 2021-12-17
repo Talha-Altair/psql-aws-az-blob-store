@@ -38,6 +38,6 @@ def read_table_from_psql(table_name):
 
 if __name__ == "__main__":
     
-    df = read_table_from_psql("test_table")
+    df = read_table_from_psql("links")
     print(df)
           
