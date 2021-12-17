@@ -1,30 +1,32 @@
 import pandas as pd
 import psycopg2
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
-from connections import db_connection, az_storage_string
+from connections import db_connection, blob_service_client
 
+def upload_to_az_container(file_name, container_name, blob_name):
+    """
+    Uploads dataframe to azure blob container with blob name
+    """
 
-# # Create a unique name for the container
-# container_name = str(uuid.uuid4())
+    container_client = blob_service_client.get_container_client(container_name)
 
-# # Create the container
-# container_client = blob_service_client.create_container(container_name)
+    blob_client = container_client.get_blob_client(blob_name)
 
-# local_file_name = "downloaded_file.csv"
+    blob_client.upload_blob(file_name)
 
-# blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
+    return 0
 
-# download_file_path = "downloaded_file.csv"
+def download_az_blob(container_name, blob_name):
+    """
+    Downloads blob from azure blob container to a directory
+    """
 
-# with open(download_file_path, "wb") as download_file:
+    container_client = blob_service_client.get_container_client(container_name)
 
-#     download_file.write(blob_client.download_blob().readall())
+    blob_client = container_client.get_blob_client(blob_name)
 
-# # Create a blob client using the local file name as the name for the blob
-# blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
+    blob_client.download_blob()
 
-# upload_file_path = "uploaded_file.csv"
+    return 0
 
-# # Upload the created file
-# with open(upload_file_path, "rb") as data:
-#     blob_client.upload_blob(data)              
+          
