@@ -3,7 +3,7 @@ from connections import db_connection, blob_service_client
 
 def upload_to_az_container(local_file_path, container_name, blob_name):
     """
-    Uploads dataframe to azure blob container with blob name
+    Uploads to azure blob container with blob name
     """
 
     container_client = blob_service_client.get_container_client(container_name)
@@ -12,20 +12,22 @@ def upload_to_az_container(local_file_path, container_name, blob_name):
 
     with open(local_file_path, "rb") as data:
 
-        blob_client.upload_blob(data)
+        blob_client.upload_blob(data, overwrite=True)
 
     return 0
 
-def download_az_blob(container_name, blob_name, downloaded_file_name):
+def download_az_blob(container_name, blob_name, download_file_path):
     """
-    Downloads blob from azure blob container to a directory
+    Downloads blob from azure blob container to local file
     """
 
     container_client = blob_service_client.get_container_client(container_name)
 
     blob_client = container_client.get_blob_client(blob_name)
 
-    blob_client.download_blob(downloaded_file_name)
+    with open(download_file_path, "wb") as download_file:
+
+        download_file.write(blob_client.download_blob().readall())
 
     return 0
 
@@ -42,7 +44,9 @@ if __name__ == "__main__":
     
     df = read_table_from_psql("links")
 
-    df.to_csv("data/links.csv")
+    df.to_csv("data/links.csv", index = False)
     
     upload_to_az_container("data/links.csv", "talha", "one/links.csv")
+
+    download_az_blob("talha", "one/links.csv", "data/links_downloaded.csv")
           
