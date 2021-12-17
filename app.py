@@ -1,15 +1,8 @@
 import pandas as pd
 import psycopg2
-
-import settings
-
-connection = psycopg2.connect(**settings.POSTGRES)
-
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+from connections import db_connection, az_storage_string
 
-# connect_str = 12
-
-# blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
 # # Create a unique name for the container
 # container_name = str(uuid.uuid4())
