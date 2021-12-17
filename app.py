@@ -60,15 +60,17 @@ def read_table_from_psql(table_name) -> pd.DataFrame:
 
 if __name__ == "__main__":
     
-    df = read_table_from_psql("links")
+    # df = read_table_from_psql("links")
 
-    df.to_csv("data/links.csv", index = False)
+    # df.to_csv("data/links.csv", index = False)
     
     # upload_to_az_container("data/links.csv", "talha", "one/links.csv")
 
     # download_az_blob("talha", "one/links.csv", "data/links_downloaded.csv")
 
-    upload_file_to_s3("data/links.csv", "talhaaltair", "two/links.csv")
+    # upload_file_to_s3("data/links.csv", "talhaaltair", "two/links.csv")
 
-    download_file_from_s3("talhaaltair", "two/links.csv", "data/links_downloaded_2.csv")
+    # download_file_from_s3("talhaaltair", "two/links.csv", "data/links_downloaded_2.csv")
+
+    print("Done")
           
