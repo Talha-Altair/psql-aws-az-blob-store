@@ -12,3 +12,4 @@ POSTGRES = {
     'port'      : os.environ['POSTGRES_PORT'],
 }
 
+AZ_STORAGE_CONNECTION_STRING = os.environ['AZ_STORAGE_CONNECTION_STRING']
