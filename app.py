@@ -64,9 +64,11 @@ if __name__ == "__main__":
 
     df.to_csv("data/links.csv", index = False)
     
-    upload_to_az_container("data/links.csv", "talha", "one/links.csv")
+    # upload_to_az_container("data/links.csv", "talha", "one/links.csv")
 
-    download_az_blob("talha", "one/links.csv", "data/links_downloaded.csv")
+    # download_az_blob("talha", "one/links.csv", "data/links_downloaded.csv")
 
-    upload_file_to_s3("data/links.csv", "talha", "two/links.csv")
+    upload_file_to_s3("data/links.csv", "talhaaltair", "two/links.csv")
+
+    download_file_from_s3("talhaaltair", "two/links.csv", "data/links_downloaded_2.csv")
           
