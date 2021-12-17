@@ -1,6 +1,4 @@
 import pandas as pd
-import psycopg2
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 from connections import db_connection, blob_service_client
 
 def upload_to_az_container(file_name, container_name, blob_name):
@@ -37,4 +35,9 @@ def read_table_from_psql(table_name):
     df = pd.read_sql_query(f"SELECT * FROM {table_name}", db_connection)
 
     return df
+
+if __name__ == "__main__":
+    
+    df = read_table_from_psql("test_table")
+    print(df)
           
