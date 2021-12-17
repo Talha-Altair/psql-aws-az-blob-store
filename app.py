@@ -1,7 +1,7 @@
 import pandas as pd
 from connections import db_connection, blob_service_client
 
-def upload_to_az_container(file_name, container_name, blob_name):
+def upload_to_az_container(local_file_path, container_name, blob_name):
     """
     Uploads dataframe to azure blob container with blob name
     """
@@ -10,7 +10,9 @@ def upload_to_az_container(file_name, container_name, blob_name):
 
     blob_client = container_client.get_blob_client(blob_name)
 
-    blob_client.upload_blob(file_name)
+    with open(local_file_path, "rb") as data:
+
+        blob_client.upload_blob(data)
 
     return 0
 
@@ -39,5 +41,8 @@ def read_table_from_psql(table_name):
 if __name__ == "__main__":
     
     df = read_table_from_psql("links")
-    print(df)
+
+    df.to_csv("data/links.csv")
+    
+    upload_to_az_container("data/links.csv", "talha", "one/links.csv")
           
